@@ -1,6 +1,8 @@
 const express = require('express');
 const logger = require('../lib/logger');
 const boardRouter = require('./board');
+const userRouter = require('./user');
+const chatroomRouter = require('./chatroom');
 
 const router = express.Router();
 
@@ -22,5 +24,7 @@ router.get('/log-test', (req, res, next) => {
 });
 
 router.use('/boards', boardRouter);
+router.use('/users', userRouter);
+router.use('/chatrooms', chatroomRouter);
 
 module.exports = router;

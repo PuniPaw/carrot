@@ -1,16 +1,17 @@
 const Sequelize = require('sequelize');
 
-module.exports = class Board extends Sequelize.Model {
+module.exports = class UserBookmark extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
-      name: {
-        type: Sequelize.STRING(50),
+      userid: {
+        type: Sequelize.STRING(255),
+        unique: true,
+        allowNull: false,
       },
-      code: {
-        type: Sequelize.STRING(50),
-      },
-      description: {
-        type: Sequelize.TEXT,
+      postid: {
+        type: Sequelize.STRING(255),
+        unique: true,
+        allowNull: false,
       },
     }, {
       sequelize,
@@ -20,5 +21,9 @@ module.exports = class Board extends Sequelize.Model {
       timestamps: true, // createAt, updatedAt
       paranoid: true, // deletedAt
     });
+  }
+
+  static associate(db) {
+    db.UserBookmark.belongsTo(db.User, { foreignKey: { name: 'userId', onDelete: 'SET NULL', as: 'User' } });
   }
 };
